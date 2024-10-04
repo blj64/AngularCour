@@ -1,4 +1,4 @@
-name: Deploy Angular to GitHub Pages
+9.0.1me: Deploy Angular to GitHub Pages
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16'  # Assurez-vous d'utiliser la bonne version de Node.js
+        node-version: '19.0.1'  # Assurez-vous d'utiliser la bonne version de Node.js
 
     - name: Install dependencies
       run: npm install
