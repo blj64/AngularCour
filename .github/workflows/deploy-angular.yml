@@ -1,4 +1,4 @@
-9.0.1me: Deploy Angular to GitHub Pages
+name: Deploy Angular to GitHub Pages
 
 on:
   push:
@@ -19,16 +19,18 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '19.0.1'  # Assurez-vous d'utiliser la bonne version de Node.js
+        node-version: '18'  # Version LTS recommandée
 
     - name: Install dependencies
       run: npm install
+      working-directory: ./helloWorld  # Spécifie le répertoire où se trouve le package.json
 
     - name: Build Angular app
-      run: npm run build -- --output-path=dist --base-href="/<ton-repo>/"
+      run: npm run build -- --output-path=dist --base-href="/AngularCour/"
+      working-directory: ./helloWorld  # Spécifie le répertoire pour le build
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+        publish_dir: ./helloWorld/dist  # Chemin du dossier de publication
