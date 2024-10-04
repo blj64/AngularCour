@@ -1,0 +1,36 @@
+name: Deploy Angular to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master  # La branche principale qui déclenchera le déploiement
+  pull_request:
+    branches:
+      - master  # Lintera les Pull Requests vers master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'  # Version LTS recommandée
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./helloWorld  # Spécifie le répertoire où se trouve le package.json
+
+    - name: Build Angular app
+      run: ng build --output-path=dist --base-href="/AngularCour/"
+      working-directory: ./helloWorld  # Spécifie le répertoire pour le build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.PAT_TOKEN }}
+        publish_dir: ./helloWorld/dist  # Chemin du dossier de publication
